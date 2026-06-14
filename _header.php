@@ -21,12 +21,20 @@
   <div class="ml-auto d-flex gap-1" style="gap:6px">
     <a href="dashboard.php"   class="btn btn-outline-light btn-sm">Dashboard</a>
     <a href="transfer.php"    class="btn btn-outline-light btn-sm">Transfer</a>
-    <a href="export.php"      class="btn btn-outline-light btn-sm">Export/Import</a>
+    <a href="voucher.php"     class="btn btn-outline-light btn-sm">Voucher</a>
+    <a href="loan.php"        class="btn btn-outline-light btn-sm">Loan</a>
+    <a href="export.php"      class="btn btn-outline-light btn-sm">XML</a>
     <a href="upload.php"      class="btn btn-outline-light btn-sm">Upload</a>
     <a href="ping.php"        class="btn btn-outline-light btn-sm">Ping</a>
-    <a href="eval.php"        class="btn btn-outline-light btn-sm">Templates</a>
+    <a href="eval.php"        class="btn btn-outline-light btn-sm">Template</a>
+    <a href="lfi.php"         class="btn btn-outline-light btn-sm">LFI</a>
+    <a href="csti.php"        class="btn btn-outline-light btn-sm">CSTI</a>
+    <a href="crypto.php"      class="btn btn-outline-light btn-sm">Crypto</a>
+    <a href="2fa.php"         class="btn btn-outline-light btn-sm">2FA</a>
     <a href="profile.php"     class="btn btn-outline-light btn-sm">Profile</a>
     <a href="search.php"      class="btn btn-outline-light btn-sm">Search</a>
+    <a href="report.php"      class="btn btn-outline-light btn-sm">Report</a>
+    <a href="contact.php"     class="btn btn-outline-light btn-sm">Contact</a>
     <a href="api.php"         class="btn btn-outline-light btn-sm">API</a>
     <a href="hints.php"       class="btn btn-outline-warning btn-sm">💡 Hints</a>
     <a href="admin.php"       class="btn btn-outline-light btn-sm">Admin</a>

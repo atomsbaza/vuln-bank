@@ -25,17 +25,21 @@ function db(): PDO {
 // ── Schema ───────────────────────────────────────────────────
 db()->exec("
     CREATE TABLE IF NOT EXISTS users (
-        id             INTEGER PRIMARY KEY AUTOINCREMENT,
-        username       TEXT NOT NULL UNIQUE,
-        password       TEXT NOT NULL,      -- A02: stored as unsalted MD5
-        email          TEXT,
-        role           TEXT DEFAULT 'user',
-        balance        REAL DEFAULT 5000.00,
-        account_number TEXT,
-        bio            TEXT DEFAULT '',
-        avatar_url     TEXT DEFAULT '',
-        security_q     TEXT DEFAULT 'What is your pet name?',
-        security_a     TEXT DEFAULT ''
+        id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+        username             TEXT NOT NULL UNIQUE,
+        password             TEXT NOT NULL,
+        email                TEXT,
+        role                 TEXT DEFAULT 'user',
+        balance              REAL DEFAULT 5000.00,
+        account_number       TEXT,
+        bio                  TEXT DEFAULT '',
+        avatar_url           TEXT DEFAULT '',
+        security_q           TEXT DEFAULT 'What is your pet name?',
+        security_a           TEXT DEFAULT '',
+        internal_credit_score INTEGER DEFAULT 720,
+        admin_notes          TEXT DEFAULT '',
+        totp_secret          TEXT DEFAULT '',
+        totp_enabled         INTEGER DEFAULT 0
     );
     CREATE TABLE IF NOT EXISTS transactions (
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,7 +53,30 @@ db()->exec("
         id         INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id    INTEGER,
         username   TEXT,
-        content    TEXT,      -- A03: stored XSS – never sanitised on insert
+        content    TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS vouchers (
+        id       INTEGER PRIMARY KEY AUTOINCREMENT,
+        code     TEXT UNIQUE,
+        discount REAL DEFAULT 100.00,
+        used     INTEGER DEFAULT 0,
+        used_by  INTEGER DEFAULT NULL
+    );
+    CREATE TABLE IF NOT EXISTS reset_tokens (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id    INTEGER,
+        token      TEXT,
+        expires_at DATETIME,
+        used       INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS loans (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id    INTEGER,
+        amount     REAL,
+        months     INTEGER,
+        monthly    REAL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 ");
@@ -80,5 +107,12 @@ if (!db()->query("SELECT 1 FROM users LIMIT 1")->fetch()) {
     db()->exec("INSERT INTO messages(user_id,username,content) VALUES
         (2,'alice','Hello VulnBank community! Love the new dashboard.'),
         (3,'bob','Transfer speeds are great. Happy customer here.')
+    ");
+
+    db()->exec("INSERT INTO vouchers(code,discount) VALUES
+        ('WELCOME50',50.00),
+        ('SAVE100',100.00),
+        ('VIP200',200.00),
+        ('FREEFEE',999.00)
     ");
 }

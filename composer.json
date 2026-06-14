@@ -1,0 +1,20 @@
+{
+    "name": "vulnbank/app",
+    "description": "VulnBank – deliberately vulnerable banking application",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "vulnbank/core-lib": "^1.0",
+        "vulnbank/payment-sdk": "^2.3",
+        "monolog/monolog": "1.23.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.vulnbank.local/satis"
+        }
+    ],
+    "config": {
+        "allow-plugins": true
+    }
+}

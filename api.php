@@ -33,6 +33,7 @@ switch ($action) {
     case 'users':
         // A02: Password hashes returned in full
         // A01: All user records, no auth
+        // BOPLA: internal_credit_score and admin_notes returned to all callers
         $users = db()->query("SELECT * FROM users")->fetchAll();
         echo json_encode(['status' => 'ok', 'data' => $users]);
         break;

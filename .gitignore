@@ -1,0 +1,6 @@
+# Runtime-generated files (not part of the intentional vuln surface)
+vulnbank.db
+uploads/
+
+# macOS
+.DS_Store
